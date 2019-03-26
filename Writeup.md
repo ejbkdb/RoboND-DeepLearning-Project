@@ -103,12 +103,13 @@ num_epochs = 50
 steps_per_epoch = 128
 validation_steps = validation_steps = 30
 workers = 2
+```
 
 Final Score: 47% 
 [link](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/finalscore.JPG)
 
 
-```
+
 Tuning:
 * Varied learning rate: .01, .001, .0001
 * Varied Batch size, 32, 64, 128
