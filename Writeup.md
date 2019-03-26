@@ -1,5 +1,10 @@
 ## RoboND Deep Learning Project: Follow Me
 
+[//]: # (Image References)
+[lr1]: https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/lr1.png
+[lr2]: https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/lr2.png
+[lr3]: https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/lr3.png
+[lrall]: https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/learning_rate.jpg
 ### Overview
 * Network Architecture
   * Summary
@@ -45,7 +50,7 @@ def fcn_model(inputs, num_classes):
 
    * Encoder Block:
 
-      Each encoder block contains 1 seperable convolution layer.
+      Each encoder block contains 1 seperable convolution layer that has batch normalization and utilizes Relu activation.
 
 ```
 
@@ -67,7 +72,7 @@ def encoder_block(input_layer, filters, strides):
      The decoders concatenation step concatenates the current input with the output of of the corresponding layer ahead of it.
      Concatenation steps help retain spatial information between layers.
 
-     I created a filter variable within the fcn_model. However I did not tune it. Modifying other hyperparameter values proved sufficient
+     I created a filter variable within the fcn_model. However I did not tune it much. Modifying other hyperparameter values proved sufficient
      to achieve the project requirement.
 ```
 def decoder_block(small_ip_layer, large_ip_layer, filters):
@@ -84,21 +89,46 @@ def decoder_block(small_ip_layer, large_ip_layer, filters):
 
 ### Hyperparameter Training
 
-The parameters below were used in [model_4](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/data/weights/model_weights_4) training.
+The parameters below were used in [model_10](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/data/weights/model_weights_10) training.
 
 The steps per epoch was set so that each epoch was one run through all of the training images
 
 The original batchsize was set to 32, but after identifying an acceptable learning rate I adjusted the batchsize to see how it influenced
-the performance of the model. A slight improvement was seen by doubling the batch size from 32 to 64.
+the performance of the model. 
 
 ```
-learning_rate = .0001
-batch_size = 64
-num_epochs = 40
-steps_per_epoch = 63
-validation_steps = validation_steps = 15
+learning_rate = .01
+batch_size = 32
+num_epochs = 50
+steps_per_epoch = 128
+validation_steps = validation_steps = 30
 workers = 2
+
+[Final Score: 47%](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/finalscore.JPG)
+
+
 ```
 Tuning:
 * Varied learning rate: .01, .001, .0001
-* Varied Batch size, 32, 64, 128. Kept learning rate at .0001
+* Varied Batch size, 32, 64, 128
+* Varied Filters 16, 32
+
+![Learing Rate All][lrall]
+Learning Rate Results
+
+Results from Tuning can be found [here](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/data/weights/learning_rate.xlsx)
+
+![Learing Rate 0.01][lr1]
+Learning Rate 0.01
+
+![Learing Rate 0.001][lr2]
+Learning Rate 0.001
+
+![Learing Rate 0.0001][lr3]
+Learning Rate 0.0001
+
+When evaluating the scores of the learning rates it was found that model performance degraded as the learning rate was reduced. Its possible the models were allowed enough time to train. Based on the scores though, I didn't anticipate a considerable improvement from one learning rate to the next by allowing the model to continue to run. I also varied batch and filter size. This had a minimal impact on model performance. The result varied by ~1-2% depending on batch size and filter. Again, there was not a step change in performance by tuning these hyper parameters.
+
+Would this model perform well tracking other features? Yes, we would just need to train it with new mask data.
+
+[link to html code](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/code/model_training.html)
