@@ -104,7 +104,8 @@ steps_per_epoch = 128
 validation_steps = validation_steps = 30
 workers = 2
 
-[Final Score: 47%](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/finalscore.JPG)
+Final Score: 47% 
+[link](https://github.com/ejbkdb/RoboND-DeepLearning-Project/blob/master/pics/finalscore.JPG)
 
 
 ```
