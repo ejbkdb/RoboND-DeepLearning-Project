@@ -11,7 +11,7 @@
   * Encoder
   * Decoder
 * Hyperparameter Training
-* Network Tuning
+
 
 ### Network Architecture:
   * Summary:
